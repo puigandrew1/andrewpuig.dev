@@ -1,24 +1,22 @@
 import styled from "styled-components";
 
-// [https://styled-components.com/docs/advanced#theming]
 const StyledPane = styled.div`
-  height: 100%;
-  background-color: #2a3136;
-  border-left: solid 1px #1b1f23;
-  color: #e6e6e6;
+  background-color: ${props => props.theme.pane.bg};
+  border-left: solid 1px ${props => props.theme.pane.border_color};
+  color: ${props => props.theme.pane.color};
   padding: 1.5rem;
   font-size: small;
   line-height: 1.4;
   white-space: pre;
 
   ::selection {
-    background-color: #4b5861;
-    color: #fff;
+    background-color: ${props => props.theme.pane.selection_bg};
+    color: ${props => props.theme.pane.selection_color};
   }
 `;
 
-const Pane = ({ children, width }) => {
-  return <StyledPane style={{ width }}>{children}</StyledPane>;
+const Pane = ({ children }) => {
+  return <StyledPane>{children}</StyledPane>;
 };
 
 export default Pane;

@@ -1,10 +1,9 @@
 import styled from "styled-components";
 
 const StyledTree = styled.div`
-  background-color: #1f2428;
-  padding: 20px;
-  height: 100%;
-  border-left: solid 1px #1b1f23;
+  background-color: ${props => props.theme.tree.bg};
+  border-left: solid 1px ${props => props.theme.tree.border_color};
+  padding: 1rem;
 `;
 
 const Tree = ({ children }) => {
