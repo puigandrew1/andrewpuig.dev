@@ -13,6 +13,10 @@ const GlobalStyle = createGlobalStyle`
       box-sizing: border-box;
     }
   }
+
+  svg {
+    vertical-align: middle;
+  }
 `;
 
 export default GlobalStyle;

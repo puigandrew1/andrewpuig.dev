@@ -1,6 +1,7 @@
 import Head from "next/head";
 import GlobalStyle from "styles/globalStyles";
 import Tree from "components/Tree";
+import { TreeItem, TreeItemText, TreeItemIcon } from "components/TreeItem";
 import Editor from "components/TextEditor";
 import Pane from "components/Pane";
 import Window from "components/Window";
@@ -13,9 +14,13 @@ import themes from "styles/themes";
 import SettingsBrightnessIcon from "@material-ui/icons/SettingsBrightness";
 import SearchIcon from "@material-ui/icons/Search";
 import GitHubIcon from "@material-ui/icons/GitHub";
+import FolderIcon from "@material-ui/icons/Folder";
+import FileCopyIcon from "@material-ui/icons/FileCopy";
+import { getRepo, getRepoContents, getFile } from "lib/api";
 
-export default function Home({ content }) {
+export default function Home({ repo, repoContents, file }) {
   const [theme, setTheme] = useState("dark");
+
   return (
     <div>
       <GlobalStyle />
@@ -27,8 +32,10 @@ export default function Home({ content }) {
       <main>
         <ThemeProvider theme={themes[theme]}>
           <Window>
+            {/* Toolbar */}
             <Toolbar>
-              <Button block
+              <Button
+                block
                 onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
               >
                 <SettingsBrightnessIcon />
@@ -40,9 +47,29 @@ export default function Home({ content }) {
                 <GitHubIcon />
               </Button>
             </Toolbar>
-            <Tree></Tree>
+
+            {/* Tree */}
+            <Tree>
+              {typeof repoContents === "object" &&
+                repoContents.map((item, i) => {
+                  return (
+                    <TreeItem key={`item-${i}`}>
+                      <TreeItemIcon>
+                        {item.type === "file" ? (
+                          <FileCopyIcon style={{ fontSize: 18 }} />
+                        ) : (
+                          <FolderIcon style={{ fontSize: 18 }} />
+                        )}{" "}
+                      </TreeItemIcon>
+                      <TreeItemText>{item.name}</TreeItemText>
+                    </TreeItem>
+                  );
+                })}
+            </Tree>
+
+            {/* Editor */}
             <Editor>
-              <Pane>{decode(content)}</Pane>
+              <Pane>{decode(file.content)}</Pane>
               <Pane>Pane 2</Pane>
             </Editor>
           </Window>
@@ -52,10 +79,12 @@ export default function Home({ content }) {
   );
 }
 
-Home.getInitialProps = async (ctx) => {
-  const res = await fetch(
-    "https://api.github.com/repos/puigandrew1/andrewpuig.dev/contents/package.json"
-  );
-  const json = await res.json();
-  return { content: json.content };
-};
+export async function getStaticProps() {
+  const repo = await getRepo();
+  const repoContents = await getRepoContents();
+  const file = await getFile("pages/index.js");
+
+  return {
+    props: { repo, repoContents, file },
+  };
+}

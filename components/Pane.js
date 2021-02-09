@@ -7,7 +7,10 @@ const StyledPane = styled.div`
   padding: 1.5rem;
   font-size: small;
   line-height: 1.4;
-  white-space: pre;
+  white-space: pre-wrap;
+  word-break: break-all;
+  overflow-y: auto;
+  overflow-x: hidden;
 
   ::selection {
     background-color: ${props => props.theme.pane.selection_bg};

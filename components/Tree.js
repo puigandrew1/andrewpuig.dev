@@ -3,6 +3,7 @@ import styled from "styled-components";
 const StyledTree = styled.div`
   background-color: ${props => props.theme.tree.bg};
   border-left: solid 1px ${props => props.theme.tree.border_color};
+  color: ${props => props.theme.tree.color};
   padding: 1rem;
 `;
 

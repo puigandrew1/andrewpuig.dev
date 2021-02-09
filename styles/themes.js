@@ -10,6 +10,7 @@ export default {
     tree: {
       bg: "#1f2428",
       border_color: "#1b1f23",
+      color: "#ccc"
     },
     toolbar: {
       bg: "#2a3136",
@@ -27,6 +28,7 @@ export default {
     tree: {
       bg: "#deebf2",
       border_color: "#ccc",
+      color: "#333"
     },
     toolbar: {
       bg: "#f0f6f9",
