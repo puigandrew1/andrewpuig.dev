@@ -4,7 +4,7 @@ const StyledTreeItem = styled.div`
   font-family: Arial, Helvetica, sans-serif;
   font-size: small;
   line-height: 1.4;
-  padding: 0.25rem 0;
+  padding: 0.2rem 0;
   display: flex;
   align-items: center;
 `;
@@ -19,8 +19,8 @@ const StyledIcon = styled.div`
 
 `;
 
-const TreeItem = ({ children }) => {
-  return <StyledTreeItem>{children}</StyledTreeItem>;
+const TreeItem = ({ children, onClick }) => {
+  return <StyledTreeItem onClick={onClick}>{children}</StyledTreeItem>;
 };
 
 const TreeItemText = ({ children }) => {

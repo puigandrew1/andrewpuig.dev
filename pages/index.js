@@ -21,6 +21,10 @@ import { getRepo, getRepoContents, getFile } from "lib/api";
 export default function Home({ repo, repoContents, file }) {
   const [theme, setTheme] = useState("dark");
 
+  const handleTreeItemClick = (i) => {
+    console.log(repoContents[i]);
+  };
+
   return (
     <div>
       <GlobalStyle />
@@ -53,7 +57,7 @@ export default function Home({ repo, repoContents, file }) {
               {typeof repoContents === "object" &&
                 repoContents.map((item, i) => {
                   return (
-                    <TreeItem key={`item-${i}`}>
+                    <TreeItem key={`item-${i}`} onClick={() => handleTreeItemClick(i)}>
                       <TreeItemIcon>
                         {item.type === "file" ? (
                           <FileCopyIcon style={{ fontSize: 18 }} />
